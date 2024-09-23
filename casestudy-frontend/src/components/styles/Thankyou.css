@@ -1,0 +1,135 @@
+/* General container styling */
+.thank-you-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f4f8;
+  animation: fadeIn 1.5s ease-in-out; /* Smooth appearance */
+  font-family: 'Helvetica', sans-serif; /* Updated font */
+}
+
+/* Heading styles */
+h2 {
+  color: #083D77;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  animation: slideDown 1s ease-in-out; /* Heading animation */
+}
+
+/* Details container styles */
+.details {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  animation: fadeInUp 1.2s ease-in-out; /* Content animation */
+  font-family: 'Helvetica', sans-serif; /* Updated font */
+}
+
+/* Subheading styles */
+.details h3 {
+  color: #083D77;
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Paragraph and text styles */
+.details p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Strong text emphasis */
+.details p strong {
+  color: #083D77;
+}
+
+/* Button styles */
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #083D77;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Helvetica', sans-serif; /* Updated font */
+}
+
+/* Button hover and active states */
+button:hover {
+  background-color: #065a9e; /* Darker shade on hover */
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+button:active {
+  background-color: #083D77;
+  transform: scale(0.98); /* Pressed effect */
+}
+
+/* Loading text styles */
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  animation: pulse 1.5s infinite; /* Loading pulse animation */
+}
+
+/* Error message styles */
+.message {
+  text-align: center;
+  font-size: 18px;
+  color: #d9534f;
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .thank-you-container {
+    padding: 10px;
+  }
+
+  .details {
+    padding: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

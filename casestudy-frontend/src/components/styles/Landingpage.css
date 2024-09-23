@@ -1,0 +1,269 @@
+/* Main container with a sleek look */
+.landing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Helvetica, Arial, sans-serif; /* Change to Helvetica */
+}
+
+.landing-title {
+  color: black; /* Heading color */
+  font-size: 48px; /* Reduced size */
+  text-align: center;
+  animation: fadeIn 2s ease-in-out; /* Text animation */
+}
+
+/* Header with stylish background */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(8,61,119,0.8), rgba(156,10,32,0.8)); /* Gradient background */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+  position: relative;
+  z-index: 100;
+  border-radius: 12px; /* Rounded edges */
+  animation: slideDown 1.5s ease-out; /* Header slide-in animation */
+}
+
+.logo {
+  font-size: 28px; /* Reduced size */
+  font-family: Helvetica, Arial, sans-serif; /* Change logo font to Helvetica */
+  font-weight: bold;
+  color: white; /* Logo color remains white */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Stylish text shadow */
+}
+
+nav {
+  display: flex;
+  gap: 15px; /* Reduced gap */
+}
+
+nav a, nav button {
+  text-decoration: none;
+  padding: 8px 12px; /* Reduced padding */
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2); /* Transparent background for glass effect */
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500; /* Slightly bolder text */
+  color: white; /* Text color remains white */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  transition: background-color 0.4s ease, transform 0.3s ease; /* Smoother transitions */
+}
+
+.landing-subtitle {
+  font-size: 24px; /* Match this to your h2 font size */
+  color: black; /* Ensure the color matches */
+  text-align: center;
+  margin-bottom: 20px; /* Adjust margin as needed */
+  letter-spacing: 1.5px; /* Optional: add letter spacing for consistency */
+  text-transform: uppercase; /* Optional: make it uppercase if desired */
+}
+
+nav a:hover, nav button:hover {
+  background-color: rgba(255, 255, 255, 0.4); /* Lighter background on hover */
+  transform: translateY(-5px); /* Stronger lift effect */
+}
+
+main {
+  background-color: #e5f3f5;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s ease-in-out; /* Main content fade-in effect */
+  font-family: Helvetica, Arial, sans-serif; /* Use Helvetica font in main */
+}
+
+h2.section-title {
+  color: black; /* Change heading color to black */
+  font-size: 36px; /* Reduced size */
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px; /* Stylish letter spacing */
+  text-transform: uppercase;
+  animation: fadeIn 1.5s ease-in-out; /* Fade-in effect without disappearing */
+  font-family: Helvetica, Arial, sans-serif; /* Ensure headings use Helvetica */
+}
+
+/* Updated plans container for cards to be placed next to each other */
+.plans-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px; /* Space between the plan cards */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  margin-bottom: 30px;
+}
+
+.plan {
+  background:#083D77;
+  color: white;
+  padding: 30px;
+  width: 300px; /* Slightly reduced width */
+  margin-bottom: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(12px); /* Glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glassmorphism */
+}
+
+.plan p {
+  color: black;
+}
+
+.plan:hover {
+  transform: scale(1.05); /* Reduced scale on hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  background-color: #005073;
+}
+
+.plan-title {
+  font-size: 24px; /* Reduced size */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: fadeInUp 1.5s ease-in-out; /* Slide-up animation */
+  font-family: Helvetica, Arial, sans-serif; /* Ensure plan headings use Helvetica */
+  color: white;
+}
+
+.plan-subtitle {
+  font-size: 20px; /* Adjust size as needed */
+  margin: 10px 0;
+}
+
+.plan-description {
+  font-size: 20px; /* Increase size as needed */
+  font-family: Helvetica, Arial, sans-serif; /* Ensure details use Helvetica */
+  color: black; /* Keep color black */
+  margin-bottom: 1.3rem;
+  margin-top: 2rem; /* Push description lower */
+}
+
+.buttonplace {
+  display: flex;
+  justify-content: center; /* Center button */
+}
+
+.plan-button {
+  background-color: white;
+  color: black; /* Change button text color to black */
+  border: none;
+  padding: 10px 18px; /* Reduced padding */
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px; /* Reduced size */
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  font-family: Helvetica, Arial, sans-serif; /* Ensure buttons use Helvetica */
+}
+
+.plan-button:hover {
+  background-color: #ffffff; /* Light background on hover */
+  color: black; /* Maintain black text on hover */
+  transform: translateY(-5px); /* Stronger lift effect */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Explore all button */
+.explore-all {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  animation: fadeIn 3s ease-in-out; /* Explore all button fade-in */
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #083D77;
+  color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  animation: fadeIn 1s ease-in-out;
+  font-family: Helvetica, Arial, sans-serif; /* Ensure footer uses Helvetica */
+}
+
+footer nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Reduced gap */
+}
+
+footer a {
+  text-decoration: none;
+  color: #f0f0f0;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #d21f3c;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-100px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive media query for mobile screens */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plan {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+/* Additional media query for even smaller screens */
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 28px; /* Reduced size for smaller screens */
+  }
+
+  p {
+    font-size: 14px; /* Reduced size */
+  }
+
+  .plan-button {
+    font-size: 14px; /* Reduced size */
+  }
+}

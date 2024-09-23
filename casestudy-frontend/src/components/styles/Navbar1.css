@@ -1,0 +1,77 @@
+/* Navbar styling */
+.navbar {
+  background-color: #083D77; /* Updated Navbar background */
+  padding: 0.5rem 1rem;
+  position:relative;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #fff; /* White text for the brand */
+}
+
+.navbar-nav {
+  align-items: center; /* Ensure vertical centering */
+}
+
+.dropdown-menu {
+  right: 0; /* Align dropdown menu to the right */
+}
+
+
+.navbar-nav .nav-item {
+  margin: 0 15px; /* Spacing between items */
+}
+
+.navbar-nav .nav-link {
+  color: #fff; /* White text */
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+  background-color: transparent; /* No background color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: Black; /* Gold color on hover for text */
+}
+
+.navbar-nav.me-auto {
+  margin: 0; /* Align links to the left */
+}
+
+.navbar-nav.ms-auto {
+  margin-left: auto; /* Push the profile section to the right */
+}
+
+.dropdown-menu {
+  background-color: #ffffff; /* Background color of the dropdown */
+  border: 1px solid #ddd; /* Light border for the dropdown */
+  border-radius: 4px; /* Rounded corners */
+  width: 228px; /* Set a fixed width for the dropdown */
+  right: 0; /* Align dropdown to the right */
+  left: auto; /* Ensure it's aligned to the right */
+  top: 100%; /* Position below the button */
+  z-index: 1000; /* Ensure it's above other content */
+  transform: translateX(-20%); /* Adjust the position slightly to the left if needed */
+}
+
+.dropdown-item {
+  color: #000; /* Black text for the dropdown items */
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Light grey background for hover effect */
+}
+
+.dropdown-divider {
+  border-top: 1px solid #ddd; /* Divider color */
+}
+
+.dropdown-item.logout-btn {
+  color: #dc3545; /* Red color for logout button */
+  background-color: transparent; /* Remove default background */
+  border: none; /* Remove border */
+}
+
+.dropdown-item.logout-btn:hover {
+  color: #c82333; /* Darker red for hover effect */
+}

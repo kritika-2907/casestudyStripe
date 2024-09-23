@@ -1,0 +1,100 @@
+.invoice-container {
+  padding: 30px;
+  background-color: #E3F5F8; /* Light gray background for the container */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Auto-fit the columns based on space */
+  gap: 20px; /* Space between invoices */
+  justify-items: center; /* Center the invoices */
+}
+
+p{
+  color: black;
+}
+
+.invoice-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 100%; /* Full width within the grid */
+  width: 70vw;
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition */
+}
+
+
+.invoice-box:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.heading {
+  color: white; /* Blue color for headings */
+  margin-bottom: 15px;
+  font-size: 1.5em; /* Increased font size */
+  font-weight: bold; /* Bold headings */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.detail{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white; /* Blue color for headings */
+}
+
+.customer-details {
+  background-color: #083D77; /* Blue background for customer details */
+  color: #fff; /* White text for customer details */
+  padding: 15px;
+  border-radius: 10px 10px 0 0; /* Rounded top corners */
+  margin-bottom: 20px;
+}
+
+.customer-details p {
+  margin: 5px 0; /* Spacing between lines */
+  font-size: 1em; /* Consistent font size */
+}
+
+.detail-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e1e1e1; /* Subtle separator line */
+  padding-bottom: 10px; /* Padding for spacing */
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333; /* Darker color for labels */
+}
+
+.detail-value {
+  text-align: right; /* Align values to the right */
+  color: #555; /* Slightly lighter color for values */
+}
+
+button {
+  background-color: #083D77; /* Blue background for buttons */
+  color: white; /* White text */
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  font-size: 1em; /* Font size for button */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button:hover {
+  background-color: #005f99; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+@media (max-width: 768px) {
+  .detail-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-value {
+    text-align: left;
+  }
+}

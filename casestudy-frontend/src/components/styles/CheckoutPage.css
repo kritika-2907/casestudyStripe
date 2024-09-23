@@ -1,0 +1,90 @@
+/* Checkout page styling */
+.checkout-container {
+  margin-top: 1.9rem;
+  padding: 0px;
+  font-family: 'Helvetica', sans-serif; /* Use a consistent font */
+  background-color: rgb(220, 249, 248);
+}
+
+.plan-details-box {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: aliceblue; /* White background for the plan details */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.plan-details-box h2 {
+  margin-top: 0;
+  color: #083D77; /* Darker color for headings */
+}
+
+.plan-details-box p{
+  color: black;
+}
+
+.contact-form {
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: #ffffff; /* White background for the contact form */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.contact-form h2 {
+  margin-top: 0;
+  color: #083D77; /* Darker color for headings */
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333; /* Darker text color for labels */
+}
+
+.contact-form input {
+  width: 100%;
+  padding: 10px; /* Increased padding for a better feel */
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.contact-form input:focus {
+  border-color: #48CFCB; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+}
+
+.validate-button {
+  background-color: #083D77;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.validate-button:hover {
+  background-color: #37bfb8; /* Slightly darker on hover */
+}
+.subscribe-button {
+  background-color: #083D77;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.subscribe-button:hover {
+  background-color: #37bfb8; /* Slightly darker on hover */
+}

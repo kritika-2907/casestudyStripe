@@ -1,0 +1,63 @@
+/* Style for the authentication container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white; /* Match background color to button color */
+}
+
+/* Style for the authentication box */
+.auth-box {
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Added shadow effect */
+  width: 100%;
+  max-width: 400px; /* Constrain the width of the box */
+}
+
+/* Header styling inside the auth box */
+.auth-box h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form styling */
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form elements */
+}
+
+/* Label styling */
+.auth-box label {
+  font-weight: bold;
+  text-align: left; /* Align label text to the left */
+}
+
+/* Input styling */
+.auth-box input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Button styling */
+.button {
+  padding: 10px;
+  background-color: #083d77; /* Button background color */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Button hover effect */
+.button:hover {
+  background-color: #001f3f; /* Darker shade on hover */
+}

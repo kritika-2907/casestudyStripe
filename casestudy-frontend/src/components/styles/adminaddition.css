@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px; /* Reduced padding around the container */
+    width: 100%;
+  }
+  
+
+  h1 {
+    text-align: center;
+    margin-bottom: 15px; /* Reduced margin at the bottom of the heading */
+  }
+  
+  .form-container-vertical {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, select, textarea, button {
+    width: 100%; /* Full width for all form elements */
+    margin-bottom: 10px; /* Reduced space between form elements */
+    padding: 8px; /* Reduced padding inside form elements */
+    border: 1px solid #ccc; /* Border for form elements */
+    border-radius: 4px; /* Rounded corners for form elements */
+    box-sizing: border-box; /* Ensure padding and border are included in the total width */
+  }
+  
+  textarea {
+    resize: vertical; /* Allow vertical resizing of the textarea */
+  }
+  
+  button {
+    background-color: #083D77; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Reduced font size for the button */
+    padding: 8px; /* Reduced padding inside the button */
+    border-radius: 4px; /* Rounded corners for the button */
+    width: 100%; /* Full width for the button */
+    text-align: center; /* Center text inside button */
+  }
+  
+  button:hover {
+    background-color: #062a54; /* Darker color on hover */
+  }
+  
+  p {
+    color: white; /* Error message color */
+    text-align: center; /* Center the error message */
+  }
+  

@@ -1,0 +1,79 @@
+/* Style for the authentication container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color:  #083d77; /* Match background color to button color */
+  }
+  
+  /* Style for the authentication box */
+  .auth-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Constrain the width of the box */
+  }
+  
+  /* Header styling inside the auth box */
+  .auth-box h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form styling */
+  .auth-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between form elements */
+  }
+  
+  /* Input Group styling */
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between label and input */
+  }
+  
+  /* Label styling */
+  .auth-box label {
+    font-weight: bold;
+    text-align: left; /* Align label text to the left */
+  }
+  
+  /* Input styling */
+  .auth-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Button styling */
+  .auth-btn {
+    padding: 10px;
+    background-color:  #083d77; /* Button background color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 10px; /* Space above the button */
+  }
+  
+  /* Button hover effect */
+  .auth-btn:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+  

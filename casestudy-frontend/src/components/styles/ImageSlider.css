@@ -1,0 +1,88 @@
+/* Main container for the slider */
+.slider-container {
+  position: relative;
+  width: 99.9%; /* Full width of the viewport */
+  height: 75vh; /* Height of the container */
+  overflow: hidden; /* Hide the images that are outside the visible area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8; /* Background color to enhance visibility */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin-top: 0; /* Ensure no top margin */
+  border-radius: 15px; /* Add rounded corners */
+}
+
+/* Wrapper for the images, handling the sliding effect */
+.slider-wrapper {
+  display: flex; /* Align images horizontally */
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition with a slower timing function */
+  width: 100%; /* Full width of the slider */
+  height: 100%; /* Full height of the slider */
+}
+
+/* Individual images in the slider */
+.slider-image {
+  min-width: 97vw; /* Ensure each image takes up the full viewport width */
+  height: 100%; /* Full height */
+  object-fit:fill; /* Maintain aspect ratio while covering the container */
+  transition: transform 0.5s ease-in-out; /* Add hover effect with smoother transition */
+}
+
+/* Add a zoom-in effect on hover */
+.slider-image:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Dot navigation container */
+.slider-dots {
+  position: absolute;
+  bottom: 15px; /* Position the dots at the bottom of the slider */
+  left: 50%;
+  transform: translateX(-50%); /* Center the dots */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between dots */
+}
+
+/* Individual dot styles */
+.slider-dot {
+  width: 12px; /* Width of the dot */
+  height: 12px; /* Height of the dot */
+  border-radius: 50%; /* Make dots circular */
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent dots */
+  transition: background-color 0.3s ease; /* Smooth transition for color change */
+  cursor: pointer; /* Pointer cursor for clickable dots */
+}
+
+/* Active dot */
+.slider-dot.active {
+  background-color: white; /* Full opacity for the active dot */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 70vh; /* Adjust height for smaller screens */
+  }
+
+  .slider-image {
+    border-radius: 10px; /* Reduce border radius for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-container {
+    height: 60vh; /* Adjust height for mobile */
+  }
+
+  .slider-image {
+    border-radius: 5px; /* Smaller radius for mobile */
+  }
+
+  .slider-dot {
+    width: 10px; /* Slightly smaller dots on smaller screens */
+    height: 10px; /* Adjust height for smaller dots */
+  }
+}

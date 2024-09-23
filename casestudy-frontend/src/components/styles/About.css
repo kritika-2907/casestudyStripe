@@ -1,0 +1,164 @@
+/* Global Font Styling */
+body {
+    font-family: 'Helvetica', sans-serif; /* Apply Helvetica globally */
+}
+
+/* About Section */
+.about-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.about-container h1 {
+    color: black;
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-family: 'Helvetica', sans-serif; /* Ensure Helvetica for headings */
+}
+
+.about-container p {
+    font-size: 18px;
+    color: #343434;
+    line-height: 1.6;
+    font-family: 'Helvetica', sans-serif; /* Ensure Helvetica for paragraph text */
+}
+
+/* Team Section */
+.team-section {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 28px;
+    color: #003366;
+    margin-bottom: 30px;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    margin: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.team-member img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.team-member p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+    font-family: 'Helvetica', sans-serif;
+}
+
+/* Customer Reviews Section */
+.customer-reviews {
+    background-color: #083D77;
+    padding: 40px 20px;
+    color: white;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.customer-reviews h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+/* Grid Layout for Reviews */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Review Card Styling */
+.review {
+    background-color: #003366;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.review::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 0;
+}
+
+.review:hover::before {
+    opacity: 1;
+}
+
+.review:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #005073;
+}
+
+/* Review Text Styling */
+.review p {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+    font-family: 'Helvetica', sans-serif;
+}
+
+/* Review Image Styling */
+.review-image {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Animation for Scroll Effect */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review {
+    animation: fadeInUp 1.5s ease-out;
+}

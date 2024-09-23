@@ -1,0 +1,404 @@
+/************************  banner script Starts ************************/
+ $(function () {
+      $(".slick_wrapper").slick({
+        autoplay: true,
+        autoplaySpeed: 8000,
+        centerMode: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        infinite: false,
+		    prevArrow: '<button class="slick-prev slick-arrow" onclick="topbannerPrev()"></button>',
+        nextArrow: '<button class="slick-next slick-arrow" onclick="topbannerNext()"></button>',
+        responsive: [
+          {
+            breakpoint: 1279,
+            settings: {
+              slidesToShow: 1,
+              dots: true,
+              autoplay: true,
+              arrows: true,
+            },
+          },
+        ],
+      });
+    });
+/************************  banner script Starts ************************/
+
+/***********************************  faq Starts  ***********************************/
+
+  $(document).ready(function () {
+    let growth_faq = $(".accordion-set .acc .acc__card");
+
+    growth_faq.each(function (index) {
+      $(this).addClass("acc__card" + index);
+    });
+
+    let showMore = false;
+    let feature_list = $(".accordion-set .acc");
+    let feature_buttonTxt = $("#toggleFeatureButton span");
+    let feature_buttonClass = $(".accordion-set .viewmore .learn-more");
+	  
+
+    // initail load
+    feature_list.children(".accordion-set .acc .acc__card:gt(4)").hide();
+        
+    // View More button
+    feature_buttonClass.click(function () {
+      showMore = !showMore;
+      if (showMore) {
+        feature_list.children(".accordion-set .acc .acc__card").slideDown(500);
+        feature_buttonTxt.text('View Less');
+        feature_buttonClass.addClass('activearrow');
+      } else {
+        feature_list.children('.accordion-set .acc .acc__card:gt(4)').slideUp(500);
+        feature_buttonTxt.text("View More");
+        feature_buttonClass.removeClass('activearrow');
+      }
+    });
+    // View More button
+   
+  });
+/***********************************  faq Ends ***********************************/
+
+
+
+/* *******Header******** */
+
+const screenBreakPoint = 767;
+var mobileWindow = $(window).width() <= screenBreakPoint;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const initialHeader = (data) => {
+    topHeaderLinks(data);
+    loginMenu(data);
+    mobileWindow ? `${aboutMenu()}, ${appDownload()}` : "";
+  };
+  (() => {
+    fetch(
+      "https://assets.airtel.in/static-assets/growth/json/header-data.json",
+      {method: "GET"}
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        localStorage.setItem("HEADER_DATA", JSON.stringify(data));
+        initialHeader(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching JSON: ", error);
+      });
+  })();
+});
+
+
+
+
+
+const getHeaderDataNew = JSON.parse(localStorage.getItem("HEADER_DATA"))
+function topHeaderLinks(data) {
+  if (!getHeaderDataNew) {
+    getHeaderDataFunction(data);
+  } else {
+    getHeaderDataFunction(getHeaderDataNew);
+  }
+
+  function getHeaderDataFunction(getHeaderData) {
+    getHeaderData?.top_header.map((topLinkData) => {
+      const topHeaderMenu = topLinkData?.navItems?.map((topMenuText) => {
+        const {isCurrent, link, text} = topMenuText;
+        return `
+          <li class="${isCurrent === true ? "active" : ""}">
+            <a href="${link}">${text}</a>
+          </li>  
+        `;
+      });
+      $(".top_nav_items").append(topHeaderMenu);
+      document.querySelectorAll(".top_nav_items").innerHTML == topHeaderMenu;
+
+      const topHeaderExplore = topLinkData?.explore_more?.map((exploreData) => {
+        const {text, link, className, targetTab} = exploreData;
+        return `
+          <li>
+            <a href="${link}" target="${targetTab}">
+              <i class=${className}></i>
+              <span>${text}</span>
+            </a>
+          </li>
+        `;
+      });
+      $(".explore_dropdown .custom_dropdown").append(topHeaderExplore);
+      document.getElementsByClassName("custom_dropdown").innerHTML ==
+        topHeaderExplore;
+    });
+    
+      const mainNav = getHeaderData?.nav_header.map((navData) => {
+        const {text, hasSubMenu} = navData;
+    
+        /* sub menu */
+    
+        const navSubMenu = navData?.subItems
+          ?.map((parentSubData) => {
+            const {text, link} = parentSubData;
+            return `
+            <li class="test">
+              <a href="${link}">${text}</a>
+            </li>
+          `;
+          })
+          .join("");
+    
+        /* end sub menu */
+    
+        return `
+           <li class="${hasSubMenu === true ? "parent" : ""}">
+             <span class="nav_text">${text}</span>
+             ${
+               hasSubMenu === true
+                 ? `
+                <ul class="dropdown_menu">
+                 ${navSubMenu}
+                </ul>
+             `
+                 : ""
+             }
+          </li>
+        `;
+      });
+      $(".nav_main .nav_menu.nav_main_container").append(mainNav);
+  }
+}  
+
+
+function loginMenu() {
+  const loginData = getHeaderDataNew?.login_menu?.map((loginMenuData) => {
+    const {text, link, targetTab, className} = loginMenuData;
+    return `
+      <li>
+        <a href="${link}" target="${targetTab}">
+          <i class="${className}"></i>
+          <span>${text}</span>
+        </a>
+      </li>
+    `;
+  });
+  $(".login_menu .custom_dropdown").append(loginData);
+}
+
+
+
+function aboutMenu() {
+  const aboutData = getHeaderDataNew?.nav_about?.map((aboutMenuData) => {
+    const {text, link, className} = aboutMenuData;
+    return `
+      <li>
+        <a href="${link}">
+          <span>${text}</span>
+          <i class="${className}"></i>
+        </a>
+      </li>
+    `;
+  });
+  $(".nav_main_about").append(aboutData);
+}
+function appDownload() {
+
+  const app_download_const = getHeaderDataNew?.app_download;
+  const { text, link } = app_download_const;
+  const anchor = document.createElement("a");
+  anchor.href = link;
+  anchor.innerText = text;
+  $(".mobile_sitcky_menu_btn").append(anchor);
+  
+
+}
+
+
+/* *******End Header******** */
+
+
+/* *******Footer******** */
+
+document.addEventListener("DOMContentLoaded", function () {
+  
+  function initialFooter(data) {
+    footerLinks(data);
+  }
+  const fetchFooterData = () => {
+    fetch('https://assets.airtel.in/static-assets/growth/json/footer-data.json', {method:"GET",})
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        localStorage.setItem("FOOTER_DATA", JSON.stringify(data));
+        initialFooter(data);
+      })
+      .catch(error => {
+        console.error('Error fetching JSON: ', error);
+      });
+  }
+  fetchFooterData();
+  
+});
+
+const getFooterData = JSON.parse(localStorage.getItem("FOOTER_DATA"));
+
+const footerLinks = (data) => {
+  if (!getFooterData) {
+    footerMainData(data);
+  } else {
+    footerMainData(getFooterData);
+  }
+  function footerMainData(getFooterData) {
+    const topFooterColumns = getFooterData?.top_footer.map((topLinkData) => {
+      const {title} = topLinkData;
+      const topFooterMenu = topLinkData?.navItems
+        ?.map((topMenuText) => {
+          const {link, text} = topMenuText;
+          return `
+        <li class="link_list_column_link">
+          <a href="${link}">${text}</a>
+        </li>
+      `;
+        })
+        .join("");
+      return `
+      <ul class="link_list_column">
+        <li class="link_list_column_head">
+          <h5>${title}</h5>
+          <ul class="link_list_column_links">
+            ${topFooterMenu}
+          </ul>
+        </li>
+      </ul>
+      
+    `;
+    });
+    $(".bottom-nav").append(topFooterColumns);
+
+    const footerSocial = getFooterData?.footer_social.map((socialData) => {
+      const {title} = socialData;
+      const topFooterMenu = socialData?.socialItems
+        ?.map((itemData) => {
+          const {className, link} = itemData;
+          return `
+       <li>
+          <a href="${link}">
+            <i class="${className}"></i>
+          </a>
+       </li>
+      `;
+        })
+        .join("");
+      return `
+      <div class="social_icons">
+          <label>${title}</label>
+          <ul class="social_icons_list">
+            ${topFooterMenu}
+          </ul>
+      </div>
+    `;
+    });
+    $(".social_follow").append(footerSocial);
+
+    const bottomFooter = getFooterData?.bottom_footer?.map(
+      (bottomFooterData) => {
+        const {text, link} = bottomFooterData;
+        return `
+      <li>
+        <a href="${link}">${text}</a>
+      </li>
+    `;
+      }
+    );
+    $(".footer_foot .footer_main").append(bottomFooter);
+  }
+
+}  
+
+document.getElementById("getCurrentYear").innerHTML = new Date().getFullYear();
+
+/* *******End Footer******** */
+
+/* only for mobile devices */
+
+mobileWindow ? `
+
+${$(document).ready(function () {
+  $(window).width() < screenBreakPoint;
+
+  /* for navigatioin footer accordion */
+  
+  setTimeout(() => {
+    const footerlinkNavigation = $(".link_list_column_head > h5");
+    footerlinkNavigation
+      .closest(".link_list_column:first-child")
+      .addClass("open_sub_menu");
+    footerlinkNavigation.click(function (e) {
+      $(this).closest(".link_list_column").toggleClass("open_sub_menu");
+      $(this)
+        .closest(".link_list_column")
+        .siblings()
+        .removeClass("open_sub_menu");
+      e.stopPropagation();
+    });
+  }, 500);
+
+  /* end navigatioin footer accordion */
+
+  /* for navigatioin header accordion */
+
+  $(window).scroll(function () {
+    var scroll = $(window).scrollTop();
+    scroll >= 500
+      ? $(".header").addClass("header_masked")
+      : $(".header").removeClass("header_masked");
+  });
+
+  setTimeout(() => {
+    const navMainNavigation = $(".nav_main_container > li .nav_text");
+    navMainNavigation.parent(":first-child").addClass("open_sub_menu");
+    navMainNavigation.click(function (e) {
+      $(this).closest(".parent").toggleClass("open_sub_menu");
+      $(this).closest(".parent").siblings().removeClass("open_sub_menu");
+      e.stopPropagation();
+    });
+  }, 500);
+
+  $(".nav_menu.nav_right").click(function (e) {
+    e.stopPropagation();
+    $(this).toggleClass("open_right_dropdown");
+  });
+  $(document).click(function () {
+    if ($(".login_menu").is(".nav_menu.nav_right") === false) {
+      $(".nav_menu.nav_right").removeClass("open_right_dropdown");
+    }
+  });
+
+  $(".close_menu").click(function (e) {
+    e.stopPropagation();
+    $(".header").toggleClass("open_navigation");
+    $("body").toggleClass("overflow_hidden");
+  });
+
+  $(".hamburger_btn").click(function (e) {
+    e.stopPropagation();
+    $(".header").toggleClass("open_navigation");
+    $("body").toggleClass("overflow_hidden");
+    $(".nav_menu.nav_right").removeClass("open_right_dropdown");
+  });
+
+  $(".airtel_app").click(function (e) {
+    e.stopPropagation();
+    $(".airtel_app_action").toggleClass("open_dropdown");
+    $(".explore_dropdown").slideToggle();
+  });
+  /* end navigatioin header accordion */
+})}
+
+
+` : ""
+
+/* end only for mobile devices */
+
+

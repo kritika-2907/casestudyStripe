@@ -1,0 +1,119 @@
+/* General authentication container styling */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e5f3f5; /* Light blue to match the rest of the page */
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Box containing the form */
+.auth-box {
+  background-color: white; /* Make sure this background color is different from the page */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for the form box */
+  text-align: center;
+  width: 400px;
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Heading styling */
+h2 {
+  font-size: 2rem;
+  color: black; /* Heading in black for contrast */
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Input group styling */
+.inputGroup {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* Label styling */
+label {
+  font-size: 1.1rem;
+  color: black;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: bold;
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Input field styling */
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Input hover and focus state */
+.input:focus {
+  border-color: #083D77; /* Focus color matching the dark blue theme */
+  outline: none;
+}
+
+/* Button styling */
+.button {
+  background-color: #083D77;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Button shadow */
+  font-family: 'Helvetica, Arial, sans-serif'; /* Set to Helvetica */
+}
+
+/* Button hover state */
+.button:hover {
+  background-color: #083D77; /* Light accent on hover */
+  color: black; /* Dark blue text on hover */
+  transform: translateY(-3px); /* Lift effect */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+  .auth-box {
+      width: 90%;
+      padding: 1.5rem;
+  }
+
+  h2 {
+      font-size: 1.8rem;
+  }
+
+  .input {
+      padding: 0.7rem;
+      font-size: 0.9rem;
+  }
+
+  .button {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.9rem;
+  }
+}

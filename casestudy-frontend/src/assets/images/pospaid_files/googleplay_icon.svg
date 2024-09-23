@@ -1,0 +1,45 @@
+<svg viewBox="0 0 36 36" fill="none"
+    xmlns="http://www.w3.org/2000/svg" class="wt-app-button-ic" data-size="sm">
+    <g clip-path="url(#play-store-icon_svg__a)">
+    <path
+        d="M21.96 13.326 9.302 6.093a.51.51 0 0 0-.513.005.507.507 0 0 0-.257.441s.005.667.01 1.765l9.22 9.22 4.196-4.198Z"
+        fill="url(#play-store-icon_svg__b)"></path>
+    <path d="M8.544 8.303c.015 3.961.062 13.576.082 18.362l9.142-9.142-9.224-9.22Z"
+        fill="url(#play-store-icon_svg__c)"></path>
+    <path
+        d="m29.204 17.466-7.244-4.14-4.202 4.197 4.74 4.74 6.71-3.91a.513.513 0 0 0 .257-.44.52.52 0 0 0-.261-.447Z"
+        fill="url(#play-store-icon_svg__d)"></path>
+    <path
+        d="m8.621 26.665.015 2.801a.5.5 0 0 0 .257.442.51.51 0 0 0 .513 0l13.098-7.64-4.74-4.74-9.143 9.137Z"
+        fill="url(#play-store-icon_svg__e)"></path>
+    </g>
+    <rect x="0.5" y="0.5" width="35" height="35" rx="7.5" stroke="#696B6F"></rect>
+    <defs>
+    <linearGradient id="play-store-icon_svg__b" x1="8.533" y1="11.777" x2="21.962" y2="11.777"
+        gradientUnits="userSpaceOnUse">
+        <stop stop-color="#63BE6B"></stop>
+        <stop offset="0.506" stop-color="#5BBC6A"></stop>
+        <stop offset="1" stop-color="#4AB96A"></stop>
+    </linearGradient>
+    <linearGradient id="play-store-icon_svg__c" x1="8.541" y1="17.487" x2="17.763" y2="17.487"
+        gradientUnits="userSpaceOnUse">
+        <stop stop-color="#3EC6F2"></stop>
+        <stop offset="1" stop-color="#45AFE3"></stop>
+    </linearGradient>
+    <linearGradient id="play-store-icon_svg__d" x1="17.763" y1="17.798" x2="29.464" y2="17.798"
+        gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FAA51A"></stop>
+        <stop offset="0.387" stop-color="#FAB716"></stop>
+        <stop offset="0.741" stop-color="#FAC412"></stop>
+        <stop offset="1" stop-color="#FAC80F"></stop>
+    </linearGradient>
+    <linearGradient id="play-store-icon_svg__e" x1="8.623" y1="23.752" x2="22.504" y2="23.752"
+        gradientUnits="userSpaceOnUse">
+        <stop stop-color="#EC3B50"></stop>
+        <stop offset="1" stop-color="#E7515B"></stop>
+    </linearGradient>
+    <clipPath id="play-store-icon_svg__a">
+        <path fill="#fff" transform="translate(8.512 6)" d="M0 0h20.976v24H0z"></path>
+    </clipPath>
+    </defs>
+</svg>

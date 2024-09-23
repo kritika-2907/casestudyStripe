@@ -1,0 +1,185 @@
+/* Main container with a sleek look */
+.landing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Helvetica', sans-serif; /* Use Helvetica for consistency */
+    width: 60rem;
+}
+
+.landing-containe h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Title Styling */
+.landing-title {
+    color: black; /* Heading color */
+    font-size: 48px; /* Title size */
+    text-align: center;
+    animation: fadeIn 2s ease-in-out; /* Text animation */
+    margin-bottom: 40px; /* Space below title */
+}
+
+/* Main content area */
+main {
+    background-color: #e5f3f5;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Added padding for content */
+    animation: fadeIn 1.5s ease-in-out; /* Main content fade-in effect */
+}
+
+/* Heading styling */
+h1 {
+    color: black; /* Change heading color to black */
+    font-size: 36px; /* Reduced size */
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px; /* Stylish letter spacing */
+    text-transform: uppercase;
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in effect */
+}
+
+/* Subtitle styling */
+h2 {
+    color: black; /* Change heading color to black */
+    font-size: 24px; /* Subtitle size */
+    text-align: center;
+    margin-bottom: 20px; /* Adjust margin as needed */
+    letter-spacing: 1.5px; /* Optional: add letter spacing for consistency */
+    text-transform: uppercase; /* Optional: make it uppercase if desired */
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in effect */
+}
+
+/* Plans container */
+.plans-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow plans to wrap */
+    justify-content: center; /* Center plans */
+    gap: 20px; /* Space between plans */
+}
+
+/* Plan card styling */
+.plan {
+    background: rgba(8, 61, 119, 0.8);
+    color: white; /* Change text color to white */
+    font-style: italic;
+    padding: 20px; /* Consistent padding */
+    width: 300px; /* Fixed width for uniformity */
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Softer shadow */
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(12px); /* Glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glassmorphism */
+}
+
+/* Plan heading */
+.plan h3 {
+    font-size: 24px; /* Uniform heading size */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Plan details */
+.plan-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Plan details text */
+.plan-details p {
+    font-size: 16px; /* Consistent font size */
+}
+
+/* Button styling */
+.buttonplace {
+    margin-top: 15px; /* Space above button */
+    display: flex; /* Aligns button consistently */
+    justify-content: center; /* Center the button */
+}
+
+button {
+    background-color: white;
+    color: black; /* Change button text color to black */
+    border: none;
+    padding: 10px 18px; /* Reduced padding */
+    border-radius: 10px; /* Adjusted radius for rounder corners */
+    cursor: pointer;
+    font-size: 16px; /* Adjust size */
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    font-family: Helvetica, Arial, sans-serif; /* Ensure buttons use Helvetica */
+}
+
+.prepaid-button{
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    width: 52px;
+}
+
+.postpaid-button{
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    width: 52px;
+}
+
+
+.prepaid-button:hover{
+    background-color: white;
+}
+
+.postpaid-button:hover{
+    background-color: white;
+}
+
+/* Button hover state */
+button:hover {
+    background-color: #ffffff; /* Light background on hover */
+    color: black; /* Maintain black text on hover */
+    transform: translateY(-5px); /* Stronger lift effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive media query for mobile screens */
+@media (max-width: 768px) {
+    .plans-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan {
+        width: 90%; /* Full width for plans on small screens */
+        margin-bottom: 30px; /* Space between plans */
+    }
+
+    h1 {
+        font-size: 28px; /* Reduced size for smaller screens */
+    }
+
+    h2 {
+        font-size: 20px; /* Smaller subtitle size */
+    }
+
+    button {
+        font-size: 14px; /* Reduced button text on small screens */
+    }
+}
