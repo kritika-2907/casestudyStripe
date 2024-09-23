@@ -33,37 +33,63 @@ const PrepaidPlans = () => {
   //   // Navigate to Payment page with the selected plan ID and planType
   //   navigate('/payment-gateway', { state: { planId, planType: 'PREPAID' } });
   // };
-  const makePayment = async (plan) => {
-    console.log(plan);
+  const makePayment = async (id) => {
     console.log(userEmail);
+    console.log(id);
+  
+    // Load Stripe
     const stripe = await loadStripe("pk_test_51PzMJ92LE9UHjUCiRYxbweuMYXgYud6jst1hGkeWirgTU3mBVfPqqkTmEX4uXSPqUV10ab9uviGTBAsjOgsJJUPg00ydnLub8D");
   
-    const response = await fetch(`${apiURL}/buyPlan`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        customerMail: userEmail, // directly use userEmail from context
-        planId: plan.planId,
-        planType: "PREPAID",
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      const { sessionId } = data; // Ensure sessionId is correctly retrieved
+    try {
+      // Make the API call to create a Stripe session
+      const response = await fetch(`${apiURL}/buyPlan`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          customerMail: userEmail,
+          planId: id,
+          planType: "PREPAID",
+        }),
+      });
   
-      const result = await stripe.redirectToCheckout({ sessionId });
+      // Handle response
+      if (response.ok) {
+        const data = await response.json();
+        const { sessionId } = data;
   
-      if (result.error) {
-        console.error(result.error.message); // Log any errors
+        // Redirect to Stripe Checkout
+        const result = await stripe.redirectToCheckout({ sessionId });
+  
+        // Handle any errors during the redirect
+        if (result.error) {
+          console.error("Stripe checkout error:", result.error.message);
+          navigate("/viewHistory", {
+            state: {
+              error: result.error.message,
+            }
+          });
+        }
+      } else {
+        const errorData = await response.json();
+        console.error("Error creating checkout session:", errorData);
+        navigate("/viewHistory", {
+          state: {
+            error: errorData.error,
+          }
+        });
       }
-    } else {
-      const errorData = await response.json();
-      console.error("Error creating checkout session:", errorData);
+    } catch (error) {
+      console.error("Unexpected error during payment:", error);
+      navigate("/viewHistory", {
+        state: {
+          error: error.message,
+        }
+      });
     }
   };
-
+  
   return (
     <div className="prepaid-container">
       <main>
@@ -94,7 +120,7 @@ const PrepaidPlans = () => {
                 <div className="prepaid-button-place">
                  
                   <button
-                    onClick={() => makePayment(plan)}
+                    onClick={() => makePayment(plan.planId)}
                     className="prepaid-buy-button"
                   >
                     Buy Plan

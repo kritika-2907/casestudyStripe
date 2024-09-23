@@ -1,9 +1,22 @@
 // src/pages/LoggedOutPage.js
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../UserContext'; // Import UserContext
 import '../App.css'; // Import your CSS file
 
 function LoggedOutPage() {
+  const { setUserEmail, setIsAuthenticated, setIsAdmin } = useContext(UserContext);
+
+  useEffect(() => {
+    // Clear context values
+    setUserEmail(null);
+    setIsAuthenticated(false);
+    setIsAdmin(false);
+
+    // Clear localStorage
+    localStorage.removeItem('token');
+  }, [setUserEmail, setIsAuthenticated, setIsAdmin]);
+
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
