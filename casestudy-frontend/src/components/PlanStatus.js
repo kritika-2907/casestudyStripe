@@ -21,8 +21,12 @@ const PlanStatus = () => {
       setLoading(true);
       try {
         const data = await checkPlanStatus(userEmail);
-        console.log("Fetched plan data:", data); // Log the fetched data
-        setPlanData(data); // Update state with fetched data
+        console.log("Fetched plan data:", data);
+        
+        // Assuming data is structured as { plan, invoice, daysLeft, message }
+        setPlanData(data);
+        console.log("The plan Data is :", data); // Log the fetched data
+        
       } catch (err) {
         console.error("Error fetching plan status:", err);
         setError('Failed to load plan status');
@@ -36,11 +40,10 @@ const PlanStatus = () => {
 
   const makePayment = async (planData, isRenew) => {
     try {
-      // Load Stripe with your public API key
-      const stripe = await loadStripe("pk_test_51PzMJ92LE9UHjUCiRYxbweuMYXgYud6jst1hGkeWirgTU3mBVfPqqkTmEX4uXSPqUV10ab9uviGTBAsjOgsJJUPg00ydnLub8D");
-  
-      console.log(`Invoice ID: ${planData.invoice.invoiceId}`);
-  
+      const stripe = await stripePromise;
+
+      console.log(`Invoice ID: ${planData.invoice?.invoiceId}`);
+
       // API request to initiate the payment
       const response = await fetch(`${apiURL}/payPostpaidInvoice`, {
         method: "POST",
@@ -48,32 +51,29 @@ const PlanStatus = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          customerMail: userEmail, // Pass the user's email
-          invoiceId: planData.invoice.invoiceId,
+          customerMail: userEmail,
+          invoiceId: planData.invoice?.invoiceId,
           changePlan: isRenew,
         }),
       });
-  
-      // Check if response is okay
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error creating checkout session:", errorData);
         return;
       }
-  
+
       const data = await response.json();
+      console.log("Checkout session data:", data);
       const { sessionId } = data;
-  
-      // Check if sessionId is present
+
       if (!sessionId) {
         console.error("Payment process failed: sessionId is missing");
         return;
       }
-  
-      // Redirect to Stripe Checkout
+
       const result = await stripe.redirectToCheckout({ sessionId });
-  
-      // Handle errors during the redirect
+
       if (result.error) {
         console.error("Stripe checkout error:", result.error.message);
       }
@@ -81,7 +81,6 @@ const PlanStatus = () => {
       console.error("Payment process failed:", error);
     }
   };
-  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -100,14 +99,12 @@ const PlanStatus = () => {
             <p>No plan information available.</p>
           )}
 
-          {planData.invoice && (
-            <>
-              <div className="invoice-info">
-                <h3>Invoice Information</h3>
-                <p><strong>Invoice ID:</strong> {planData.invoice.invoiceId}</p>
-                <p><strong>Amount:</strong> Rs.{planData.invoice.amount}</p>
-                <p><strong>Due Date:</strong> {new Date(planData.invoice.date).toLocaleDateString()}</p>
-              </div>
+          {planData.invoice ? (
+            <div className="invoice-info">
+              <h3>Invoice Information</h3>
+              <p><strong>Invoice ID:</strong> {planData.invoice.invoiceId}</p>
+              <p><strong>Amount:</strong> Rs.{planData.invoice.amount}</p>
+              <p><strong>Due Date:</strong> {new Date(planData.invoice.date).toLocaleDateString()}</p>
 
               <div className="renew-plan">
                 <label>
@@ -116,14 +113,16 @@ const PlanStatus = () => {
                     checked={isRenew}
                     onChange={() => setIsRenew(!isRenew)}
                   />
-                  <span className="change-text"> Change</span>
+                  <span className="change-text"> Change Plan</span>
                 </label>
               </div>
 
               <button onClick={() => makePayment(planData, isRenew)} className="pay-button">
                 Pay
               </button>
-            </>
+            </div>
+          ) : (
+            <p>No invoice available.</p>
           )}
 
           <p>{planData.message}</p>

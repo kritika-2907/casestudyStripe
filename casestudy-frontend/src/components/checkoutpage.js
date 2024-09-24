@@ -63,7 +63,7 @@ const Checkout = () => {
   const handleSubscribe = async () => {
     const { planId, planType } = location.state || {};
     const response = await checkPlanStatus(email);
-    console.log(response);
+    //console.log(response);
     navigate('/paymentsuccess', { state: { planId, planType } });
     
   };

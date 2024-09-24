@@ -748,7 +748,7 @@ app.post("/payPostpaidInvoice", async (req, res) => {
       return res.status(404).json({ error: "Plan not found" });
     }
 
-    // Define 'now' here so it can be used throughout the function
+    // Define `now` here to make it accessible later
     let now = new Date();
 
     // Update the invoice status to 'paid'
@@ -757,8 +757,8 @@ app.post("/payPostpaidInvoice", async (req, res) => {
       data: { status: "paid" },
     });
 
-    if (changePlan) {
-      // If changePlan is true, delete the customerPlan entry and set the customer's currPlan to 0
+    if (!changePlan) {
+      // Handle customerPlan update
       let customerPlan = await prisma.customerPlan.findUnique({
         where: {
           customerId_planId: {
@@ -784,59 +784,57 @@ app.post("/payPostpaidInvoice", async (req, res) => {
           datePurchased: now,
         },
       });
-
-      // Create Stripe Checkout Session
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            price_data: {
-              currency: 'inr',
-              product_data: { name: plan.planId },
-              unit_amount: Math.round(invoice.units * plan.ratePerUnit * 100),
-            },
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `http://localhost:3000/Paymentsuccess`,
-        cancel_url: `http://localhost:3000/ViewHistory`,
+    } else {
+      // If changePlan is false, create a new invoice
+      let invoiceData = {
+                customerName: customer.customerName,
+                customerId: customer.customerId,
+                planId: plan.planId,
+                date: now,
+                planType: "POSTPAID"
+              };
+      let newInvoice = new Invoice(invoiceData);
+      newInvoice = await prisma.invoice.create({
+        data: {
+          invoiceId:newInvoice.invoiceId,
+          customerName: customer.customerName,
+          customerId: customer.customerId,
+          planId: plan.planId,
+          units: 0, // Assuming units are the same for the new invoice
+          date: now, // Use now here
+          status: "N/A", // New invoice status
+          amount: 0, // Assuming amount remains the same
+          planType: "POSTPAID", // Directly using "POSTPAID"
+        },
       });
-
-      // Respond with the session ID
-      return res.json({ sessionId: session.id });
     }
 
-    // If changePlan is not true, create a new invoice
-    let invoiceData = {
-      customerName: customer.customerName,
-      customerId: customer.customerId,
-      planId: plan.planId,
-      date: now,
-      planType: "POSTPAID",
-    };
-
-    let newInvoice = new Invoice(invoiceData);
-    newInvoice = await prisma.invoice.create({
-      data: {
-        invoiceId: newInvoice.invoiceId,
-        customerName: customer.customerName,
-        customerId: customer.customerId,
-        planId: plan.planId,
-        units: 0, // Assuming units are the same for the new invoice
-        date: now,
-        status: "N/A", // New invoice status
-        amount: 0, // Assuming amount remains the same
-        planType: invoice.planType, // Assuming plan type remains the same
-      },
+    // Stripe Checkout Session - Always executed
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'inr',
+            product_data: { name: plan.planName }, // Assuming plan name here
+            unit_amount: Math.round(invoice.units * plan.ratePerUnit * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:3000/Paymentsuccess`,
+      cancel_url: `http://localhost:3000/ViewHistory`,
     });
 
+    // Return the response with the sessionId
     return res.status(200).json({
-      message: "Invoice paid and same plan subscribed successfully",
+      message: "Invoice paid successfully",
       invoice,
-      newInvoice,
       customer,
+      sessionId: session.id // Return the sessionId along with the other details
     });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -2010,123 +2008,132 @@ app.post("/viewPlan",async (req,res)=>{
 })
 
 app.post("/checkCustomerPlanStatus", async (req, res) => {
-  const { customerMail } = req.body;
-
-  try {
-    // Fetch customer using customerMail
-    let customer = await prisma.customer.findUnique({
-      where: { customerMail: customerMail },
-    });
-
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
-
-    // Fetch the customer's active plan using customerCurrPlan
-    let customerPlan = await prisma.customerPlan.findUnique({
-      where: {
-        customerId_planId: {
-          customerId: customer.customerId,
-          planId: customer.customerCurrPlan, // currPlan is the active planId
-        },
-      },
-    });
-
-    if (!customerPlan) {
-      return res.status(404).json({ error: "Customer plan not found" });
-    }
-
-    // Get the current date
-    let now = new Date();
-
-    // Check if the current date is past the due date
-    if (now > customerPlan.dueDate) {
-      // Delete the customerPlan entry
-      await prisma.customerPlan.delete({
-        where: { id: customerPlan.id },
-      });
-
-      // Reset the customer's currPlan to 0 (default)
-      await prisma.customer.update({
-        where: { customerId: customer.customerId },
-        data: { customerCurrPlan: 0 },
-      });
-
-      return res.status(200).json({
-        message: "Customer has no active plans",
-      });
-    }
-
-    // If the due date has not passed, calculate days left
-    let timeDifference = customerPlan.dueDate.getTime() - now.getTime();
-    let daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Calculate days left
-
-    // Fetch plan and include related prepaid and postpaid plans
-    let plan = await prisma.plan.findUnique({
-      where: { planId: customer.customerCurrPlan },
-      include: {
-        prepaidPlans: true,
-        postpaidPlans: true,
-      },
-    });
-
-    if (!plan) {
-      return res.status(404).json({ error: "Plan not found" });
-    }
-
-    // Determine plan type based on the relationships
-    let planType;
-    if (plan.prepaidPlans.length > 0) {
-      planType = 'PREPAID';
-    } else if (plan.postpaidPlans.length > 0) {
-      planType = 'POSTPAID';
-    } else {
-      return res.status(404).json({ error: "Plan type not found" });
-    }
-
-    // Handle PREPAID plan scenario
-    if (planType === 'PREPAID') {
-      if (daysLeft <= 5) {
-        return res.status(200).json({
-          message: "Your plan validity is about to expire.",
-          daysLeft,
-          plan,
-        });
-      } else {
-        return res.status(200).json({
-          message: "Customer's active plan is still valid.",
-          daysLeft,
-          plan,
-        });
-      }
-    }
-
-    // Handle POSTPAID plan scenario
-    if (planType === 'POSTPAID') {
-      if (daysLeft <= 5) {
-        // Use units and generate invoice as the due date is approaching
-        await useUnitsForCustomer(customerMail);
-        const generatedInvoice = await generateInvoiceForCustomer(customerMail);
-
-        return res.status(200).json({
-          message: "Invoice generated as due date is approaching.",
-          daysLeft, // Include days left here as well
-          invoice: generatedInvoice,
-          plan,
-        });
-      } else {
-        return res.status(200).json({
-          message: "Customer's active plan is still valid.",
-          daysLeft,
-          plan,
-        });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+    const { customerMail } = req.body;
+   
+    try {
+      // Fetch customer using customerMail
+      let customer = await prisma.customer.findUnique({
+        where: { customerMail: customerMail },
+      });
+   
+      if (!customer) {
+        return res.status(404).json({ error: "Customer not found" });
+      }
+   
+      // Fetch the customer's active plan using customerCurrPlan
+      let customerPlan = await prisma.customerPlan.findUnique({
+        where: {
+          customerId_planId: {
+            customerId: customer.customerId,
+            planId: customer.customerCurrPlan, // currPlan is the active planId
+          },
+        },
+      });
+   
+      if (!customerPlan) {
+        return res.status(404).json({ error: "Customer plan not found" });
+      }
+   
+      // Get the current date
+      let now = new Date();
+   
+      // Check if the current date is past the due date
+      if (now > customerPlan.dueDate) {
+        // Delete the customerPlan entry
+        await prisma.customerPlan.delete({
+          where: { id: customerPlan.id },
+        });
+   
+        // Reset the customer's currPlan to 0 (default)
+        await prisma.customer.update({
+          where: { customerId: customer.customerId },
+          data: { customerCurrPlan: 0 },
+        });
+   
+        return res.status(200).json({
+          message: "Customer has no active plans",
+        });
+      }
+   
+      // If the due date has not passed, check days left
+      let timeDifference = customerPlan.dueDate.getTime() - now.getTime();
+      let daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
+   
+      // Fetch plan type
+      let plan = await prisma.plan.findUnique({
+        where: { planId: customer.customerCurrPlan },
+        include: {
+          prepaidPlans: true,
+          postpaidPlans: true
+        }
+      });
+   
+      if (!plan) {
+        return res.status(404).json({ error: "Plan not found" });
+      }
+   
+      let planType;
+      if (plan.prepaidPlans.length > 0) {
+        planType = 'PREPAID';
+      } else if (plan.postpaidPlans.length > 0) {
+        planType = 'POSTPAID';
+      } else {
+        return res.status(404).json({ error: "Plan type not found" });
+      }
+   
+      if (planType === 'PREPAID') {
+        if (daysLeft <= 5) {
+          return res.status(200).json({
+            message: "Your plan validity is about to expire.",
+            daysLeft,
+            plan
+          });
+        } else {
+          return res.status(200).json({
+            message: "Customer's active plan is still valid.",
+            daysLeft,
+            plan
+          });
+        }
+      } else if (planType === 'POSTPAID') {
+        // Fetch the most recent invoice for the customer
+        const latestInvoice = await prisma.invoice.findFirst({
+          where: { customerId: customer.customerId },
+          orderBy: { date: 'desc' }, // Assuming you have a 'date' field in your Invoice model
+        });
+   
+        // Check the status of the most recent invoice
+        if (latestInvoice && latestInvoice.status === 'not paid') {
+          return res.status(200).json({
+            message: "A previous invoice is still unpaid. No new invoice will be generated.",
+            latestInvoice,
+            plan
+          });
+        }
+   
+        // If there are 5 days or less left, use units and generate invoice
+        if (daysLeft <= 5) {
+          await useUnitsForCustomer(customerMail);
+          const generatedInvoice = await generateInvoiceForCustomer(customerMail);
+   
+          return res.status(200).json({
+            message: "Invoice generated as due date is approaching.",
+            invoice: generatedInvoice,
+            plan
+          });
+        } else {
+          return res.status(200).json({
+            message: "Customer's active plan is still valid.",
+            daysLeft,
+            plan
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
